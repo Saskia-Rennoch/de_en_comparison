@@ -1,0 +1,36 @@
+https://datawrapper.dwcdn.net/fLxFY/1/
+
+lyrics_text = lyrics_soup.find("pre", id="lyrics-body-text").text
+
+conda create --name env5uni python: 3.80 pip
+
+Semesterbeiträge Tabelle
+
+
+df from jupyter notebook
+-jupyter: -id number for uni and city[rent] (for cross referencing), + study programm (connect to uni), primary key
+code from jupyter needs to be in vsc (way to df)
+-all the code goes into vsc not just the df, minimal way
+-id number for uni and city[rent] (for cross referencing), + study programm (connect to uni)
+3 tables in pandas(city, uni, program), load in postgres (load to sequel command -week 6)
+-in postgres datatables
+-streamlit: choose something -> f-string will complete query
+-streamlit -> pythonanywhere
+
+
+Uni + Kosten check  -noch ID adden
+City + Rent  -eng: check; de: ausstehend
+
+Study Programms: missing
+
+Topic: compare study costs in England and Germany: average Rent & tuition fee per yr;
+options to seach and select an alternative english study program in Germany
+ 
+last week: webscraping of data (will continue)
+today: get to know streamlit + build basics + load dfs from jupyter to vsc and into postgres
+start 
+
+-before having a dataframe split lists into programms and university
+
+
+df in vsc: then connect to postgres: load data in (potentially also manually (point & click or via csv file))

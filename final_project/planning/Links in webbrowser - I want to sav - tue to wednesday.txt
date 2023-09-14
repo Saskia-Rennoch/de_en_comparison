@@ -1,0 +1,43 @@
+Links in webbrowser - I want to save - tuesday to wednesday night
+
+sehr wichtig
+https://docs.sqlalchemy.org/en/20/tutorial/data_select.html (pstgres - py connection)
+https://www.freecodecamp.org/news/connect-python-with-sql/
+https://learn.microsoft.com/en-us/sql/machine-learning/data-exploration/python-dataframe-pandas?view=sql-server-ver16
+https://docs.streamlit.io/library/api-reference/connections/st.connections.sqlconnection
+https://docs.streamlit.io/library/api-reference/data/st.table
+https://docs.streamlit.io/library/advanced-features/dataframes
+
+quellen
+https://www.ons.gov.uk/methodology/geography/ukgeographies/administrativegeography/england
+https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/privaterentalmarketsummarystatisticsinengland
+
+unwichtiger
+https://stackoverflow.com/questions/36181622/moving-every-other-row-to-a-new-column-and-group-pandas-python
+
+
+https://regex101.com/
+
+https://streamlit.io/gallery?category=data-visualization
+https://docs.streamlit.io/library/advanced-features/dataframes
+https://docs.streamlit.io/library/api-reference/connections/st.connections.sqlconnection
+
+https://www.pythonanywhere.com/user/saskiare/account/eu_vat_confirmation
+
+
+-german into csv file -> load into postgres
+
+
+Table: field, degree, title, university, city 
+Table2: city, rent
+
+left join: field, degree, title, university, city, rent(Table2)
+
+https://www.hochschulkompass.de/studium/studiengangsuche/erweiterte-studiengangsuche.html?tx_szhrksearch_pi1%5Bsearch%5D=1&genios=&tx_szhrksearch_pi1%5Bview%5D=&tx_szhrksearch_pi1%5Bfach%5D=&tx_szhrksearch_pi1%5Bstudtyp%5D=3&tx_szhrksearch_pi1%5Bzusemester%5D=&tx_szhrksearch_pi1%5Blehramt%5D=&tx_szhrksearch_pi1%5Bsprache%5D=2&tx_szhrksearch_pi1%5Bbesform%5D%5B%5D=i&tx_szhrksearch_pi1%5Bmaster%5D%5B%5D=1+++++++++&tx_szhrksearch_pi1%5Bname%5D=&tx_szhrksearch_pi1%5Bplz%5D=&tx_szhrksearch_pi1%5Bort%5D=&tx_szhrksearch_pi1%5Btraegerschaft%5D=
+
+https://www.hochschulkompass.de/studium/studiengangsuche/erweiterte-studiengangsuche/search/1/studtyp/3.html?tx_szhrksearch_pi1%5Bsprache%5D=2&tx_szhrksearch_pi1%5Bbesform%5D%5B0%5D=i&tx_szhrksearch_pi1%5Bmaster%5D%5B0%5D=1%20%20%20%20%20%20%20%20%20
+
+https://www.hochschulkompass.de/studium/studiengangsuche/erweiterte-studiengangsuche/search/1/studtyp/3/pn/1.html?tx_szhrksearch_pi1%5Bsprache%5D=2&tx_szhrksearch_pi1%5Bbesform%5D%5B0%5D=i&tx_szhrksearch_pi1%5Bmaster%5D%5B0%5D=1%20%20%20%20%20%20%20%20%20
+
+
+https://www.hochschulkompass.de/studium/studiengangsuche/erweiterte-studiengangsuche/search/1/studtyp/3/pn/2.html?tx_szhrksearch_pi1%5Bsprache%5D=2&tx_szhrksearch_pi1%5Bbesform%5D%5B0%5D=i&tx_szhrksearch_pi1%5Bmaster%5D%5B0%5D=1%20%20%20%20%20%20%20%20%20

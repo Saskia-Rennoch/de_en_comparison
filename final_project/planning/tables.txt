@@ -1,0 +1,44 @@
+tables:
+
+England:
+Table 1:
+
+study program   university   
+
+
+table2: 
+
+
+region    university     rent
+
+
+table3:
+
+
+university     tuition fee
+
+
+
+
+Germany: 
+
+Table1
+tabl2
+table3
+
+user: maths
+
+
+studyPrg_de -> university_de + city + rent  + averg rent_en + averg tuition_fee_en
+
+-> user_input: program_de_name "math"
+
+variable in python 
+
+into postgres 
+
+select rent, city, en_tuition from table1, table2, table3 where variable = "maths";
+        table information  -> outputvariable
+
+outputvariable -> transfer to pyton -> streamlit: view: maths, university frankfurt, rent: averg 700€ ; 
+
