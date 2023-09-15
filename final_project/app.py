@@ -16,7 +16,13 @@ import psycopg2 as pg
 # import time
 # import logging
 
-# AWS Connection
+# local
+# USERNAME_PG = 'postgres'  # eds specify
+# PASSWORD_PG = 'postgres'  # change it (keep it in a different .py outsourced)
+# HOST_PG = 'localhost'  # server in Frankfurt / end point
+# PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
+# DATABASE_NAME_PG = 'en_de_comparison'
+
 USERNAME_PG = 'postgres'  # eds specify
 PASSWORD_PG = 'postgres'  # change it (keep it in a different .py outsourced)
 HOST_PG = 'localhost'  # server in Frankfurt / end point
