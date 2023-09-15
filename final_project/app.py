@@ -1,6 +1,6 @@
 import streamlit as st
-from IPython.core.display import HTML
-from IPython.display import IFrame
+#from IPython.core.display import HTML
+#from IPython.display import IFrame
 import requests
 import pandas as pd
 import re
