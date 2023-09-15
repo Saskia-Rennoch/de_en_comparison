@@ -14,7 +14,7 @@ import sqlalchemy  # use a version prior to 2.0.0 or adjust creating the engine 
 from sqlalchemy import text
 import psycopg2 as pg
 # import time
-# import logging
+import logging
 
 # local
 # USERNAME_PG = 'postgres'  # eds specify
@@ -22,18 +22,20 @@ import psycopg2 as pg
 # HOST_PG = 'localhost'  # server in Frankfurt / end point
 # PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
 # DATABASE_NAME_PG = 'en_de_comparison'
+try:
+    USERNAME_PG = 'postgres'  # eds specify
+    PASSWORD_PG = 'postgres'  # change it (keep it in a different .py outsourced)
+    HOST_PG = 'localhost'  # server in Frankfurt / end point
+    PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
+    DATABASE_NAME_PG = 'en_de_comparison'
 
-USERNAME_PG = 'postgres'  # eds specify
-PASSWORD_PG = 'postgres'  # change it (keep it in a different .py outsourced)
-HOST_PG = 'localhost'  # server in Frankfurt / end point
-PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
-DATABASE_NAME_PG = 'en_de_comparison'
+    conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
+    pg = sqlalchemy.create_engine(conn_string_pg)
 
-conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
-pg = sqlalchemy.create_engine(conn_string_pg)
-
-connection = pg.connect()
-
+    connection = pg.connect()
+    logging.critical("\n---- successfully connected to database ----\n")
+except:
+    logging.exception("\n---- not connected to database ----\n")
 
 
 # print(de_programs)
