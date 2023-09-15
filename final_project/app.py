@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import re
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 import os
 import logging
 import pandas as pd
