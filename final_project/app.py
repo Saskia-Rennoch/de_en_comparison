@@ -1,25 +1,26 @@
 import streamlit as st
 #from IPython.core.display import HTML
 #from IPython.display import IFrame
-import requests
+# import requests
 import pandas as pd
-import re
-#from bs4 import BeautifulSoup
-import os
-import logging
-import pandas as pd
-import numpy as np
+# import re
+# from bs4 import BeautifulSoup
+# import os
+# import logging
+# import pandas as pd
+# import numpy as np
 
 import sqlalchemy  # use a version prior to 2.0.0 or adjust creating the engine and df.to_sql()
 from sqlalchemy import text
 import psycopg2 as pg
 # import time
-import logging
+# import logging
 
-USERNAME_PG = 'postgres'
-PASSWORD_PG = 'postgres'
-HOST_PG = 'localhost'
-PORT_PG = 5432
+# AWS Connection
+USERNAME_PG = 'postgres'  # eds specify
+PASSWORD_PG = 'postgres'  # change it (keep it in a different .py outsourced)
+HOST_PG = 'localhost'  # server in Frankfurt / end point
+PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
 DATABASE_NAME_PG = 'en_de_comparison'
 
 conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
@@ -70,16 +71,20 @@ elif nav == "Germany":
     rent = st.slider('How much rent are you willing to pay?', 0, 800, 400, key="german_rent")
     st.write("How much rent are you willing to pay", rent, 'euro per semester. this is the uni options')
 
+# summary
+
     # export to different file; query_1 = query_de
-    query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds FROM de_degree_field_title_uni_city d
-            INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
+    # query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds, r.Rent_yearly_pounds FROM de_degree_field_title_uni_city d
+    #         INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
+    query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds, r.Rent_yearly_pounds, f.Tuition_fee
+    FROM de_degree_field_title_uni_city d
+    INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City
+    INNER JOIN de_uni_county_fee f ON d.University = f.University WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
+    # is still not working!!!
 
     sql_df1 = pd.read_sql(query_1, con=connection)
 
     sql_df1 = sql_df1.replace({"ae": "ä", "oe": "ö", "ue": "ü"}, regex=True)  # chatgpt suggested change
-
-    st.dataframe(sql_df1, use_container_width=True, hide_index=True)
-
 
     # small query (England)
     query_2 = f"""SELECT e.region,
@@ -88,10 +93,51 @@ elif nav == "Germany":
                 ROUND(AVG(e.approx_tuition_fee_yr)) AS avg_approx_tuition_fee_yr
             FROM en_reg_uni_rent_m_yr_fee e
             GROUP BY e.region;"""
-
     sql_df2 = pd.read_sql(query_2, con=connection)
 
+    german_yr_f_mean = 600
+    #german_yr_f_mean = sql_df1["Tuition_fee"].mean()
+    german_yr_r_mean = sql_df1["rent_yearly_pounds"].mean()
+    if option1 == "Master Degree":
+        total_rent_de = german_yr_r_mean * 2
+        total_fee_de = german_yr_f_mean * 2
+    elif option1 == "Bachelor Degree":
+        total_rent_de = german_yr_r_mean * 3
+        total_fee_de = german_yr_f_mean * 3
+
+    german_total_costs = total_rent_de + total_fee_de
+
+    english_yr_f_mean = sql_df2["avg_approx_tuition_fee_yr"].mean()
+    english_yr_r_mean = sql_df2["avg_rent_year_pounds"].mean()
+    if option1 == "Master Degree":
+        total_rent_en = english_yr_r_mean * 1
+        total_fee_en = english_yr_f_mean * 1
+    elif option1 == "Bachelor Degree":
+        total_rent_en = english_yr_r_mean * 3
+        total_fee_en = english_yr_f_mean * 3
+
+    english_total_costs = total_rent_en + total_fee_en
+
+#     Bachelor:
+# De 
+# -Filtered Rent per Degree (yr x 3): yr rent Ø x 3 
+# -Filtered Fee per Degree (yr x 3): yr fee Ø x 3
+# -Total costs: Rent x 3 + Fee x 3
+
+    st.write("How much you will spend in your degree in Germany", total_rent_de, "pounds")
+    st.write("How much you will spend in your degree in Germany", total_fee_de, "pounds")
+    st.write("How much you will spend in your degree in Germany", german_total_costs, "pounds")
+
+    st.write("How much you will spend in your degree in England", total_rent_en, "pounds")
+    st.write("How much you will spend in your degree in England", total_fee_en, "pounds")
+    st.write("How much you will spend in your degree in England", english_total_costs, "pounds")
+    st.dataframe(sql_df1, use_container_width=True, hide_index=True)
+
+
+
     st.dataframe(sql_df2, use_container_width=True, hide_index=True)
+
+
 
 elif nav == "England":
     # English Webpage:
