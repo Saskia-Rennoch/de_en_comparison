@@ -1,4 +1,0 @@
-Webscraping Tools:
-
-webpages for text extraction:
-https://totheweb.com/learning_center/tools-convert-html-text-to-plain-text-for-content-review/
