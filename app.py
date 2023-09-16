@@ -127,8 +127,8 @@ elif nav == "Germany":
     english_total_costs = total_rent_en + total_fee_en
 
 #     Bachelor:
-# De 
-# -Filtered Rent per Degree (yr x 3): yr rent Ø x 3 
+# De
+# -Filtered Rent per Degree (yr x 3): yr rent Ø x 3
 # -Filtered Fee per Degree (yr x 3): yr fee Ø x 3
 # -Total costs: Rent x 3 + Fee x 3
     st.write("The following calculations are based on Bachelor programs taking 3 years in Germany/England and Master programs taking 2 years in Germany and 1 year in England:")
@@ -197,8 +197,8 @@ elif nav == "England":
         total_rent_en2 = english_yr_r2_mean * 1
         total_fee_en2 = english_yr_f2_mean * 1
     elif option5 == "Bachelor Degree":
-        total_rent_en2 = round(english_yr_r2_mean * 3)
-        total_fee_en2 = round(english_yr_f2_mean * 3)
+        total_rent_en2 = english_yr_r2_mean * 3
+        total_fee_en2 = english_yr_f2_mean * 3
 
     english_total_costs2 = total_rent_en2 + total_fee_en2
 
@@ -223,4 +223,3 @@ elif nav == "England":
 
     st.write("Compare the study costs with various regions in Germany:")
     st.dataframe(sql_df4, use_container_width=True, hide_index=True)
-
