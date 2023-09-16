@@ -76,18 +76,18 @@ elif nav == "Germany":
     fields_list = [i[0] for i in de_fields]
     option2 = st.selectbox("Please select the field of study you are looking for:", (fields_list))
 
-    rent = st.slider('How much rent are you willing to pay?', 0, 800, 400, key="german_rent")
-    st.write("How much rent are you willing to pay", rent, 'euro per semester. this is the uni options')
+    rent = st.slider('How much rent are you willing to pay (£/month)?', 0, 800, 400, key="german_rent")
+    st.write("You are willing to pay up to ", rent, '£ rent/month. This are the Ø costs for your study plan:')
 
 # summary
 
-    # export to different file; query_1 = query_de
-    # query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds, r.Rent_yearly_pounds FROM de_degree_field_title_uni_city d
-    #         INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
-    query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds, r.Rent_yearly_pounds, f.Tuition_fee
-    FROM de_degree_field_title_uni_city d
-    INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City
-    INNER JOIN de_uni_county_fee f ON d.University = f.University WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
+    #export to different file; query_1 = query_de
+    query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds, r.Rent_yearly_pounds FROM de_degree_field_title_uni_city d
+            INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
+    # query_1 = f"""SELECT d.University, d.Study_program, d.City, r.Rent_monthly_pounds, r.Rent_yearly_pounds, f.Tuition_fee
+    # FROM de_degree_field_title_uni_city d
+    # INNER JOIN de_city_rent_month_rent_yr r ON d.City = r.City
+    # INNER JOIN de_uni_county_fee f ON d.University = f.University WHERE d.Degree = '{option1}' AND d.Field = '{option2}' AND r.Rent_monthly_pounds <= {rent};"""
     # is still not working!!!
 
     sql_df1 = pd.read_sql(query_1, con=connection)
@@ -103,26 +103,26 @@ elif nav == "Germany":
             GROUP BY e.region;"""
     sql_df2 = pd.read_sql(query_2, con=connection)
 
-    german_yr_f_mean = 600
+    german_yr_f_mean = 400
     #german_yr_f_mean = sql_df1["Tuition_fee"].mean()
     german_yr_r_mean = sql_df1["rent_yearly_pounds"].mean()
     if option1 == "Master Degree":
-        total_rent_de = german_yr_r_mean * 2
-        total_fee_de = german_yr_f_mean * 2
+        total_rent_de = round(german_yr_r_mean * 2)
+        total_fee_de = round(german_yr_f_mean * 2)
     elif option1 == "Bachelor Degree":
-        total_rent_de = german_yr_r_mean * 3
-        total_fee_de = german_yr_f_mean * 3
+        total_rent_de = round(german_yr_r_mean * 3)
+        total_fee_de = round(german_yr_f_mean * 3)
 
     german_total_costs = total_rent_de + total_fee_de
 
     english_yr_f_mean = sql_df2["avg_approx_tuition_fee_yr"].mean()
     english_yr_r_mean = sql_df2["avg_rent_year_pounds"].mean()
     if option1 == "Master Degree":
-        total_rent_en = english_yr_r_mean * 1
-        total_fee_en = english_yr_f_mean * 1
+        total_rent_en = round(english_yr_r_mean * 1)
+        total_fee_en = round(english_yr_f_mean * 1)
     elif option1 == "Bachelor Degree":
-        total_rent_en = english_yr_r_mean * 3
-        total_fee_en = english_yr_f_mean * 3
+        total_rent_en = round(english_yr_r_mean * 3)
+        total_fee_en = round(english_yr_f_mean * 3)
 
     english_total_costs = total_rent_en + total_fee_en
 
@@ -131,29 +131,32 @@ elif nav == "Germany":
 # -Filtered Rent per Degree (yr x 3): yr rent Ø x 3 
 # -Filtered Fee per Degree (yr x 3): yr fee Ø x 3
 # -Total costs: Rent x 3 + Fee x 3
+    st.write("The following calculations are based on Bachelor programs taking 3 years in Germany/England and Master programs taking 2 years in Germany and 1 year in England:")
+    st.write("Total rent for your German ", option1, "in £", total_rent_de)
+    st.write("Total tuition fee for your German ", option1, "in £", total_fee_de)
+    st.write("How much you will spend for your", option1, "in Germany in £", german_total_costs)
 
-    st.write("How much you will spend in your degree in Germany", total_rent_de, "pounds")
-    st.write("How much you will spend in your degree in Germany", total_fee_de, "pounds")
-    st.write("How much you will spend in your degree in Germany", german_total_costs, "pounds")
+    st.write("Total rent for your English ", option1, "in £", total_rent_en)
+    st.write("Total tuition fee for your English ", option1, "in £", total_fee_en)
+    st.write("How much you will spend for your ", option1, "in England in £", english_total_costs)
 
-    st.write("How much you will spend in your degree in England", total_rent_en, "pounds")
-    st.write("How much you will spend in your degree in England", total_fee_en, "pounds")
-    st.write("How much you will spend in your degree in England", english_total_costs, "pounds")
+    st.write("You save approx. ", round(english_total_costs - german_total_costs), "£ if you choose Germany.")
+
+    st.write("With your selected options consider these study programs:")
     st.dataframe(sql_df1, use_container_width=True, hide_index=True)
 
 
-
+    st.write("Compare the study costs with various regions in England:")
     st.dataframe(sql_df2, use_container_width=True, hide_index=True)
 
 
 
 elif nav == "England":
-    # English Webpage:
-    # selectionbox option3 and option4 should only appear when on the top selection between England / Germany -> En
-    # selectbox 1 : select a region in england
+
     en_unique_region_query = "SELECT DISTINCT region FROM en_reg_uni_rent_m_yr_fee e;"
     en_regions = connection.execute(text(en_unique_region_query))
     region_list = [i[0] for i in en_regions]
+    #option3 = st.selectbox(("East"))  "!!!! Can I select a default value? -> "East" & "University of Cambridge"
     option3 = st.selectbox("Please select in which region of England you would like to study:", (region_list))
 
     en_unique_university_query = f"SELECT DISTINCT university FROM en_reg_uni_rent_m_yr_fee e WHERE region = '{option3}';"
@@ -172,8 +175,6 @@ elif nav == "England":
 
     sql_df3 = pd.read_sql(query_3, con=connection)
 
-    st.dataframe(sql_df3, use_container_width=True, hide_index=True)
-
     # Small query England (German values)
     query_4 = f"""SELECT f.County,
                 ROUND(AVG(f.Tuition_fee)) AS avg_tuition_fee,
@@ -188,4 +189,38 @@ elif nav == "England":
 
     sql_df4 = sql_df4.replace({"ae": "ä", "oe": "ö", "ue": "ü"}, regex=True)
 
+    option5 = st.selectbox("Not connected to database. Study: ", ("Master Degree", "Bachelor Degree"))
+
+    english_yr_r2_mean = sql_df3["rent_year_pounds"].mean()
+    english_yr_f2_mean = sql_df3["approx_tuition_fee_yr"].mean()
+    if option5 == "Master Degree":
+        total_rent_en2 = english_yr_r2_mean * 1
+        total_fee_en2 = english_yr_f2_mean * 1
+    elif option5 == "Bachelor Degree":
+        total_rent_en2 = round(english_yr_r2_mean * 3)
+        total_fee_en2 = round(english_yr_f2_mean * 3)
+
+    english_total_costs2 = total_rent_en2 + total_fee_en2
+
+    german_yr_r2_mean = sql_df4["avg_rent_yearly_pounds"].mean()
+    german_yr_f2_mean = sql_df4["avg_tuition_fee"].mean()
+    if option5 == "Master Degree":
+        total_rent_de2 = round(german_yr_r2_mean * 2)
+        total_fee_de2 = round(german_yr_f2_mean * 2)
+    elif option5 == "Bachelor Degree":
+        total_rent_de2 = round(german_yr_r2_mean * 3)
+        total_fee_de2 = round(german_yr_f2_mean * 3)
+
+    german_total_costs2 = total_rent_de2 + total_fee_de2
+
+    st.write("How much you will spend for your", option5, "in England in £", english_total_costs2)
+    st.write("How much you will spend for your", option5, "in Germany in £", german_total_costs2)
+
+    # write sentences to show based on summary code
+
+    st.write("With your selected options consider these study programs in England:")
+    st.dataframe(sql_df3, use_container_width=True, hide_index=True)
+
+    st.write("Compare the study costs with various regions in Germany:")
     st.dataframe(sql_df4, use_container_width=True, hide_index=True)
+
