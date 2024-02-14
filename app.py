@@ -30,7 +30,7 @@ try:
     DATABASE_NAME_PG = 'd9l71eopc971jj' #'en_de_comparison'
 
     conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
-    pg = sqlalchemy.create_engine(conn_string_pg)
+    # pg = sqlalchemy.create_engine(conn_string_pg)
 
     DATABASE_URL = os.environ['DATABASE_URL']
 
