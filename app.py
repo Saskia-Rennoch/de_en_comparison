@@ -32,7 +32,12 @@ try:
     conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
     pg = sqlalchemy.create_engine(conn_string_pg)
 
-    connection = pg.connect()
+    DATABASE_URL = os.environ['DATABASE_URL']
+
+    connection = pg.connect(sqlalchemy.create_engine(conn_string_pg))
+    #connection = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+    #connection = pg.connect() #auskommandiert, als Zeile 37 rein kam
     logging.critical("\n---- successfully connected to database ----\n")
 except:
     logging.exception("\n---- not connected to database ----\n")
@@ -57,7 +62,7 @@ if nav == "Home":
     col1, col2 = st.columns(2)
 
 # Add the first image to the first column
-    col1.image("https://www.england.de/images/england/england-flaggen.jpg")
+    col1.image("https://i.pinimg.com/originals/21/7d/bc/217dbc0caa5d0283e22a641b49079560.jpg")
     col1.text("Source: https://www.england.de/")
 
     # Add the second image to the second column

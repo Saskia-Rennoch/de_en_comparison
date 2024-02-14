@@ -30,9 +30,10 @@ try:
     DATABASE_NAME_PG = 'en_de_comparison'
 
     conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
-    pg = sqlalchemy.create_engine(conn_string_pg)
+   # pg = sqlalchemy.create_engine(conn_string_pg)
 
-    connection = pg.connect()
+   #connection = pg.connect()
+    connection = pg.connect(sqlalchemy.create_engine(conn_string_pg)) #worked with Nancy
     logging.critical("\n---- successfully connected to database ----\n")
 except:
     logging.exception("\n---- not connected to database ----\n")
