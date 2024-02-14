@@ -23,11 +23,11 @@ import logging
 # PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
 # DATABASE_NAME_PG = 'en_de_comparison'
 try:
-    USERNAME_PG = 'fpktbcnwjdzjck'#'postgres'  
-    PASSWORD_PG = 'b6b88746d96bbc0e41a9b2dc7dfcc7fc1e51ea7d473950be41a2aa9f1db33b6b' #'postgres'  
-    HOST_PG = 'ec2-52-215-68-14.eu-west-1.compute.amazonaws.com' #'localhost'  # server in Frankfurt / end point
+    USERNAME_PG = 'bbkzmjpumneimy'#'postgres'  
+    PASSWORD_PG = 'c963068cd795a31708f696c9b02215f72f24b667d6fa6975f59d89a94174e568' #'postgres'
+    HOST_PG = 'ec2-34-248-228-53.eu-west-1.compute.amazonaws.com' #'localhost'  # server in Frankfurt / end point
     PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
-    DATABASE_NAME_PG = 'd9l71eopc971jj' #'en_de_comparison'
+    DATABASE_NAME_PG = 'd6118kbj1q1jjp' #'en_de_comparison'
 
     conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
     # pg = sqlalchemy.create_engine(conn_string_pg)
