@@ -29,11 +29,15 @@ try:
     PORT_PG = 5432  # may not need to be specified # lesson week 5 -sql
     DATABASE_NAME_PG = 'en_de_comparison'
 
+#neuer Versuch render:
+    conn_string_pg_render = postgresql://en_de_project_user:hLRTLMWxiVSdNZo75nHoHYy8LwpkR2ta@dpg-cre8258gph6c73ep6u40-a.frankfurt-postgres.render.com/en_de_project
+
+
     conn_string_pg = f"postgresql://{USERNAME_PG}:{PASSWORD_PG}@{HOST_PG}:{PORT_PG}/{DATABASE_NAME_PG}"
    # pg = sqlalchemy.create_engine(conn_string_pg)
 
    #connection = pg.connect()
-    connection = pg.connect(sqlalchemy.create_engine(conn_string_pg)) #worked with Nancy
+    connection = pg.connect(sqlalchemy.create_engine(conn_string_pg_render)) #worked with Nancy
     logging.critical("\n---- successfully connected to database ----\n")
 except:
     logging.exception("\n---- not connected to database ----\n")
