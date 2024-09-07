@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 #from IPython.core.display import HTML
 #from IPython.display import IFrame
 # import requests
@@ -194,3 +195,10 @@ elif nav == "England":
     sql_df4 = sql_df4.replace({"ae": "ä", "oe": "ö", "ue": "ü"}, regex=True)
 
     st.dataframe(sql_df4, use_container_width=True, hide_index=True)
+
+   # Add this at the end of your script
+   #addin von claude ai
+   if __name__ == "__main__":
+       port = int(os.environ.get("PORT", 8501))
+       st.run(port=port)
+   
